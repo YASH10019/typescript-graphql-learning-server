@@ -1,15 +1,5 @@
 import * as GraphQL from "graphql";
-// const GraphQL = require("graphql");
 import * as _ from "lodash";
-// const _ = require('lodash');
-
-// const {
-//     GraphQLSchema,
-//     GraphQLObjectType,
-//     GraphQLString,
-//     GraphQLID,
-//     GraphQLInt
-// } = require('graphql');
 
 var books = [
     { name: 'Name of the Wind', genre: 'Fantasy', id: '1', authorId: '1' },

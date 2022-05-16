@@ -1,13 +1,8 @@
 import Express from "express";
-// const express = require('express');
 import * as graphqlSchema from "./schema/schema.js";
-// const graphqlSchema = require('./schema/schema');
 import { graphqlHTTP } from "express-graphql";
-// const { graphqlHTTP } = require('express-graphql');
-import * as dotenv from "dotenv/config";
-// require('dotenv/config');
+import "dotenv/config";
 import { connect } from "./database/connect.js";
-// const connect = require('./database/connect');
 import helmet from "helmet";
 
 
