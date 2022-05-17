@@ -1,20 +1,15 @@
-import mongoose from "mongoose";
-
-
-export function connect() {
-    try {
-
-        // console.log(process.env.MONGODB_URI)
-        mongoose.connect(process.env.MONGODB_URI, (err, db) => {
-            if (err === null) {
-                console.log('Connected to MongoDB');
-            }
-            else {
-                console.error('Error connecting to MongoDB: ' + err);
-                res.status(500).json({ "status": 0, "message": err });
-            }
-        })
-    } catch (err) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.connect = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+function connect() {
+    mongoose_1.default.connect(process.env.MONGODB_URI).then(() => {
+        console.log('Connected to MongoDB');
+    }).catch((err) => {
         console.error('Error connecting to MongoDB: ' + err);
-    }
+    });
 }
+exports.connect = connect;
