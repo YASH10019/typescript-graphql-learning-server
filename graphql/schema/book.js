@@ -12,12 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookInput = exports.Book = void 0;
 const type_graphql_1 = require("type-graphql");
 const mongoose_1 = require("mongoose");
+require("reflect-metadata");
 let Book = class Book {
-    constructor(name, genre, authorId) {
-        this.name = name;
-        this.genre = genre;
-        this.authorId = authorId;
-    }
 };
 __decorate([
     (0, type_graphql_1.Field)(),
@@ -32,8 +28,7 @@ __decorate([
     __metadata("design:type", mongoose_1.Schema.Types.ObjectId)
 ], Book.prototype, "authorId", void 0);
 Book = __decorate([
-    (0, type_graphql_1.ObjectType)(),
-    __metadata("design:paramtypes", [String, String, mongoose_1.Schema.Types.ObjectId])
+    (0, type_graphql_1.ObjectType)()
 ], Book);
 exports.Book = Book;
 let BookInput = class BookInput {

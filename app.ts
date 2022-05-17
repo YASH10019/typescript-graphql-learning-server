@@ -5,7 +5,6 @@ import "dotenv/config";
 import {connect} from "./database/connect";
 import helmet from "helmet";
 
-
 const app = Express();
 connect()
 

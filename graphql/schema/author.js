@@ -12,10 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorInput = exports.Author = void 0;
 const type_graphql_1 = require("type-graphql");
 let Author = class Author {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
 };
 __decorate([
     (0, type_graphql_1.Field)(),
@@ -26,15 +22,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Author.prototype, "age", void 0);
 Author = __decorate([
-    (0, type_graphql_1.ObjectType)(),
-    __metadata("design:paramtypes", [String, Number])
+    (0, type_graphql_1.ObjectType)()
 ], Author);
 exports.Author = Author;
 let AuthorInput = class AuthorInput {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
 };
 __decorate([
     (0, type_graphql_1.Field)(),
@@ -45,7 +36,6 @@ __decorate([
     __metadata("design:type", Number)
 ], AuthorInput.prototype, "age", void 0);
 AuthorInput = __decorate([
-    (0, type_graphql_1.InputType)(),
-    __metadata("design:paramtypes", [String, Number])
+    (0, type_graphql_1.InputType)()
 ], AuthorInput);
 exports.AuthorInput = AuthorInput;
