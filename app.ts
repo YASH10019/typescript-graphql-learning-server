@@ -12,7 +12,7 @@ dotenv.config({path: __dirname + "/.env"});
 const app = Express();
 connect()
 
-app.use(helmet());
+// app.use(helmet());
 
 const schema = buildSchema({
     resolvers: [BookResolver, AuthorResolver],
