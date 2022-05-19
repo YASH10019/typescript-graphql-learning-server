@@ -1,19 +1,25 @@
-import {Query, Resolver} from "type-graphql";
+import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import {Book, BookInput} from "../schema/book";
 import BookRepo from "../../database/repository/BookRepo";
-import {Document, Types} from "mongoose";
-import {IBook} from "../../database/model/book";
 
 
-@Resolver(of => Book)
+@Resolver(Book)
 export class BookResolver {
+    // constructor(private bookRepo: BookRepo) {
+    // }
+
     @Query(returns => [Book], {nullable: true})
-    async getBooks(): Promise<Book[]> {
+    async getBooks() {
         return await BookRepo.getAllBooks();
     }
 
     @Query(returns => Book, {nullable: true})
-    async getBookById(id: Types.ObjectId): Promise<(Document<unknown, any, IBook> & IBook & { _id: Types.ObjectId }) | null> {
+    async getBookById(@Arg("id") id: string) {
         return await BookRepo.findById(id);
+    }
+
+    @Mutation(returns => Book)
+    async addBook(@Arg("newBookData") bookInput: BookInput) {
+        return await BookRepo.addBook(bookInput);
     }
 }

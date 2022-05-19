@@ -8,5 +8,8 @@ class BookRepo {
     static getAllBooks() {
         return book_1.BookModel.find().exec();
     }
+    static addBook(book) {
+        return book_1.BookModel.create(book);
+    }
 }
 exports.default = BookRepo;

@@ -1,5 +1,4 @@
 import {Field, InputType, ObjectType} from "type-graphql";
-import {Schema} from "mongoose";
 import "reflect-metadata";
 
 @ObjectType()
@@ -11,7 +10,7 @@ export class Book {
     genre: string
 
     @Field()
-    authorId: Schema.Types.ObjectId
+    authorId: string
 
 }
 
@@ -24,11 +23,5 @@ export class BookInput implements Partial<Book> {
     genre: string
 
     @Field()
-    authorId: Schema.Types.ObjectId
-
-    constructor(name: string, genre: string, authorId: Schema.Types.ObjectId) {
-        this.name = name
-        this.genre = genre
-        this.authorId = authorId
-    }
+    authorId: string
 }

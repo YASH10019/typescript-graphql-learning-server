@@ -8,5 +8,8 @@ class AuthorRepo {
     static getAllAuthors() {
         return author_1.AuthorModel.find().exec();
     }
+    static async addAuthor(author) {
+        return author_1.AuthorModel.create(author);
+    }
 }
 exports.default = AuthorRepo;

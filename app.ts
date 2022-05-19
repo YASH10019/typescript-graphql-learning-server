@@ -1,17 +1,27 @@
 import Express from "express";
-import * as graphqlSchema from "./graphql/schema";
 import {graphqlHTTP} from "express-graphql";
-import "dotenv/config";
+import dotenv from "dotenv";
 import {connect} from "./database/connect";
 import helmet from "helmet";
+import {buildSchema} from "type-graphql";
+import {BookResolver} from "./graphql/resolver/bookResolver";
+import {AuthorResolver} from "./graphql/resolver/authorResolver";
+
+dotenv.config({path: __dirname + "/.env"});
 
 const app = Express();
 connect()
 
 app.use(helmet());
+
+const schema = buildSchema({
+    resolvers: [BookResolver, AuthorResolver],
+    emitSchemaFile: true
+});
+
 app.use("/graphql", graphqlHTTP({
     // @ts-ignore
-    schema: graphqlSchema,
+    schema: schema,
     graphiql: true
 }));
 
