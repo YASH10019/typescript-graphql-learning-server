@@ -1,8 +1,7 @@
 import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import {Book} from "../schema/book";
-import {Author} from "../schema/author";
+import {Author, AuthorInput} from "../schema/author";
 import AuthorRepo from "../../database/repository/AuthorRepo";
-import {IAuthor} from "../../database/model/author";
 
 
 @Resolver(of => Author)
@@ -21,7 +20,7 @@ export class AuthorResolver {
     }
 
     @Mutation(returns => Author)
-    async addAuthor(author: IAuthor): Promise<Author | null> {
-        return await AuthorRepo.addAuthor(author);
+    async addAuthor(@Arg("author") authorInput: AuthorInput): Promise<Author | null> {
+        return AuthorRepo.addAuthor(authorInput);
     }
 }

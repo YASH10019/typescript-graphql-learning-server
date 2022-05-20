@@ -8,6 +8,11 @@ type Author {
   name: String!
 }
 
+input AuthorInput {
+  age: Float!
+  name: String!
+}
+
 type Book {
   authorId: String!
   genre: String!
@@ -21,7 +26,7 @@ input BookInput {
 }
 
 type Mutation {
-  addAuthor: Author!
+  addAuthor(author: AuthorInput!): Author!
   addBook(newBookData: BookInput!): Book!
 }
 

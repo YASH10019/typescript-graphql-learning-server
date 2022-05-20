@@ -1,5 +1,5 @@
 import {AuthorModel, IAuthor} from "../model/author";
-import {Author} from "../../graphql/schema/author";
+import {Author, AuthorInput} from "../../graphql/schema/author";
 
 export default class AuthorRepo {
     public static findById(id: string): Author | null {
@@ -24,7 +24,7 @@ export default class AuthorRepo {
         return null;
     }
 
-    public static addAuthor(author: IAuthor): Author | null {
+    public static addAuthor(author: AuthorInput): Author | null {
         AuthorModel.create(author).then((author: IAuthor) => {
             console.log("Author created" + author);
             return author;
