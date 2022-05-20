@@ -10,7 +10,7 @@ export class Author {
 }
 
 @InputType()
-export class AuthorInput implements Partial<Author> {
+export class AuthorInput implements Pick<Author, "name" | "age"> {
     @Field()
     name: string
 

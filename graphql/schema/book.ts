@@ -15,7 +15,7 @@ export class Book {
 }
 
 @InputType()
-export class BookInput implements Partial<Book> {
+export class BookInput implements Pick<Book, "name" | "genre" | "authorId"> {
     @Field()
     name: string
 

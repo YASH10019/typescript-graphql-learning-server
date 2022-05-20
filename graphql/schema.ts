@@ -1,4 +1,4 @@
-import {buildSchema} from "type-graphql";
+import {buildSchemaSync} from "type-graphql";
 import {BookResolver} from "./resolver/bookResolver";
 import {AuthorResolver} from "./resolver/authorResolver";
 
@@ -17,13 +17,9 @@ const authors = [
     {name: 'Terry Pratchett', age: 66, id: '3'}
 ];
 
-export const graphqlSchema = buildSchema({
+export const graphqlSchema = buildSchemaSync({
     resolvers: [BookResolver, AuthorResolver],
     emitSchemaFile: true
-}).then(() => {
-    console.log('Schema created');
-}).catch(err => {
-    console.error(err);
 });
 
 /*

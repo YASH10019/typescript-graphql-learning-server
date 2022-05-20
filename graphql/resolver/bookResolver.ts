@@ -3,23 +3,29 @@ import {Book, BookInput} from "../schema/book";
 import BookRepo from "../../database/repository/BookRepo";
 
 
-@Resolver(Book)
+@Resolver(() => Book)
 export class BookResolver {
-    // constructor(private bookRepo: BookRepo) {
-    // }
 
-    @Query(returns => [Book], {nullable: true})
-    async getBooks() {
-        return await BookRepo.getAllBooks();
+    @Query(() => [Book], {nullable: true})
+    async getBooks(): Promise<Book[] | null> {
+        const books = BookRepo.getAllBooks();
+        // return books;
+        return new Promise<Book[]>((resolve, reject) => {
+            if (books!==null) {
+                resolve(books);
+            } else {
+                reject(new Error("No books found"));
+            }
+        });
     }
 
-    @Query(returns => Book, {nullable: true})
-    async getBookById(@Arg("id") id: string) {
-        return await BookRepo.findById(id);
+    @Query(() => Book, {nullable: true})
+    async getBookById(@Arg("id") id: string): Promise<Book | null> {
+        return BookRepo.findById(id);
     }
 
-    @Mutation(returns => Book)
-    async addBook(@Arg("newBookData") bookInput: BookInput) {
-        return await BookRepo.addBook(bookInput);
+    @Mutation(() => Book)
+    async addBook(@Arg("newBookData") bookInput: BookInput): Promise<Book | null> {
+        return BookRepo.addBook(bookInput);
     }
 }

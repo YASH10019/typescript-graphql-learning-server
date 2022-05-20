@@ -1,16 +1,37 @@
-import {Document, Types} from "mongoose";
 import {AuthorModel, IAuthor} from "../model/author";
+import {Author} from "../../graphql/schema/author";
 
 export default class AuthorRepo {
-    public static findById(id: string): Promise<(Document<unknown, any, IAuthor> & IAuthor & { _id: Types.ObjectId }) | null> {
-        return AuthorModel.findById(id).exec();
+    public static findById(id: string): Author | null {
+        AuthorModel.findById(id, (err: Error, author: IAuthor) => {
+            if (err) {
+                console.error(err);
+                return null;
+            }
+            return author;
+        });
+        return null;
     }
 
-    public static getAllAuthors(): Promise<(Document<unknown, any, IAuthor> & IAuthor & { _id: Types.ObjectId })[]> {
-        return AuthorModel.find().exec();
+    public static getAllAuthors(): Author[] | null {
+        AuthorModel.find({}, (err: Error, authors: IAuthor[]) => {
+            if (err) {
+                console.error(err);
+                return null;
+            }
+            return authors;
+        });
+        return null;
     }
 
-    public static async addAuthor(author: IAuthor): Promise<IAuthor> {
-        return AuthorModel.create(author);
+    public static addAuthor(author: IAuthor): Author | null {
+        AuthorModel.create(author).then((author: IAuthor) => {
+            console.log("Author created" + author);
+            return author;
+        }).catch((err: Error) => {
+            console.error(err);
+            return null;
+        });
+        return null;
     }
 }

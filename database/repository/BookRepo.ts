@@ -1,16 +1,37 @@
 import {BookModel, IBook} from "../model/book";
-import {Document, Types} from "mongoose";
 import {Book} from "../../graphql/schema/book";
 
 export default class BookRepo {
-    public static findById(id: string): Promise<(Document<unknown, any, IBook> & IBook & { _id: Types.ObjectId }) | null> {
-        return BookModel.findById(id).exec();
+    public static findById(id: string): Book | null {
+        BookModel.findById(id, (err: Error, book: IBook) => {
+            if (err) {
+                console.error(err);
+                return null;
+            }
+            return book;
+        });
+        return null;
     }
 
-    public static getAllBooks(): Promise<(Document<unknown, any, IBook> & IBook & { _id: Types.ObjectId })[]> {
-        return BookModel.find().exec();
+    public static getAllBooks(): Book[] | null {
+        BookModel.find({}, (err: Error, books: IBook[]) => {
+            if (err) {
+                console.error(err);
+                return null;
+            }
+            return books;
+        });
+        return null;
     }
-    public static addBook(book: Book):Promise<IBook>{
-        return BookModel.create(book);
+
+    public static addBook(book: Book): Book | null {
+        BookModel.create(book).then((book: IBook) => {
+            console.log("Book added" + book);
+            return book;
+        }).catch((err: Error) => {
+            console.error(err);
+            return null;
+        });
+        return null;
     }
 }
