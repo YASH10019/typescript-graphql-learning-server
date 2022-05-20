@@ -12,7 +12,9 @@
   "author": "yash10019coder",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.12",
     "class-validator": "^0.13.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-graphql": "^0.12.0",

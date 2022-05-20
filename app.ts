@@ -2,30 +2,33 @@ import Express from "express";
 import {graphqlHTTP} from "express-graphql";
 import dotenv from "dotenv";
 import {connect} from "./database/connect";
-import helmet from "helmet";
-import {buildSchema} from "type-graphql";
-import {BookResolver} from "./graphql/resolver/bookResolver";
-import {AuthorResolver} from "./graphql/resolver/authorResolver";
+import {graphqlSchema} from "./graphql/schema";
+import cors from "cors";
 
-dotenv.config({path: __dirname + "/.env"});
+async function main() {
+    dotenv.config({path: __dirname + "/.env"});
 
-const app = Express();
-connect()
+    const port = process.env.PORT || 4000;
+    const app = await Express();
+    await connect()
 
 // app.use(helmet());
+    app.use(cors())
+    await graphqlSchema;
+    try {
+        app.use("/graphql", graphqlHTTP({
+            // @ts-ignore
+            schema: graphqlSchema,
+            graphiql: true
+        }));
+    } catch (e) {
+        console.error(e);
+    }
 
-const schema = buildSchema({
-    resolvers: [BookResolver, AuthorResolver],
-    emitSchemaFile: true
-});
 
-app.use("/graphql", graphqlHTTP({
-    // @ts-ignore
-    schema: schema,
-    graphiql: true
-}));
-
-
-app.listen(4000, () => {
-    console.log("Server is running on port 4000");
-});
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+        console.log(`http://localhost:${port}/graphql`);
+    });
+}
+main();

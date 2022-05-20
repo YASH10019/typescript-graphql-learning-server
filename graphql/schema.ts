@@ -17,12 +17,14 @@ const authors = [
     {name: 'Terry Pratchett', age: 66, id: '3'}
 ];
 
-const graphqlSchema = buildSchema({
+export const graphqlSchema = buildSchema({
     resolvers: [BookResolver, AuthorResolver],
     emitSchemaFile: true
-})
-
-exports.graphqlSchema = graphqlSchema;
+}).then(() => {
+    console.log('Schema created');
+}).catch(err => {
+    console.error(err);
+});
 
 /*
 const BookType= new GraphQL.GraphQLObjectType({
